@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public abstract class BlockLight {
 
     public void removeLater(long ticks) {
         if (ticks > 0) {
-            this.removeTask = new BukkitRunnable() {
+            this.removeTask = new DenizenRunnable() {
                 @Override
                 public void run() {
                     removeTask = null;

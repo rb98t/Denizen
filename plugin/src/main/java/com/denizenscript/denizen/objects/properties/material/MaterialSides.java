@@ -90,10 +90,10 @@ public class MaterialSides extends MaterialProperty<ListTag> {
                 mechanism.echoError("Invalid sides list, size must be 5.");
                 return;
             }
-            setSide(carpet::setHeight, MossyCarpet.Height.class, BlockFace.NORTH, list, 0, mechanism);
-            setSide(carpet::setHeight, MossyCarpet.Height.class, BlockFace.EAST, list, 1, mechanism);
-            setSide(carpet::setHeight, MossyCarpet.Height.class, BlockFace.SOUTH, list, 2, mechanism);
-            setSide(carpet::setHeight, MossyCarpet.Height.class, BlockFace.WEST, list, 3, mechanism);
+            setSide(carpet::setHeight, Wall.Height.class, BlockFace.NORTH, list, 0, mechanism);
+            setSide(carpet::setHeight, Wall.Height.class, BlockFace.EAST, list, 1, mechanism);
+            setSide(carpet::setHeight, Wall.Height.class, BlockFace.SOUTH, list, 2, mechanism);
+            setSide(carpet::setHeight, Wall.Height.class, BlockFace.WEST, list, 3, mechanism);
             carpet.setBottom(CoreUtilities.equalsIgnoreCase(list.get(4), "bottom"));
         }
     }

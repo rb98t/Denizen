@@ -183,7 +183,7 @@ public class PaperAPIToolsImpl extends PaperAPITools {
                 teleportFlags.add(new ElementTag(relativeTeleportFlag.name()).asEnum(TeleportFlag.Relative.class));
             }
         }
-        entity.teleport(loc, cause, teleportFlags.toArray(new TeleportFlag[0]));
+        entity.teleportAsync(loc, cause, teleportFlags.toArray(new TeleportFlag[0]));
     }
 
     record BrewingRecipeMatchers(String inputMatcher, String ingredientMatcher) {}
@@ -283,7 +283,7 @@ public class PaperAPIToolsImpl extends PaperAPITools {
         if (isOwnName && modifiedTextures.contains(player.getUniqueId())) {
             skinProfile.removeProperty("textures");
         }
-        Bukkit.getScheduler().runTaskAsynchronously(Denizen.instance, () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.runTaskAsynchronously(Denizen.instance, () -> {
             if (!skinProfile.complete()) {
                 return;
             }

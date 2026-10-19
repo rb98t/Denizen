@@ -115,4 +115,85 @@ public class CraftItemProjectileImpl extends CraftEntity implements ItemProjecti
     public void setBounce(boolean doesBounce) {
         this.doesBounce = doesBounce;
     }
+
+    @Override
+    public boolean canMobPickup() {
+        return false;
+    }
+
+    @Override
+    public void setCanMobPickup(boolean canMobPickup) {
+    }
+
+    @Override
+    public boolean canPlayerPickup() {
+        return false;
+    }
+
+    @Override
+    public void setCanPlayerPickup(boolean canPlayerPickup) {
+    }
+
+    @Override
+    public boolean willAge() {
+        return false;
+    }
+
+    @Override
+    public void setWillAge(boolean willAge) {
+    }
+
+    @Override
+    public int getHealth() {
+        return 5;
+    }
+
+    @Override
+    public void setHealth(int health) {
+    }
+
+    @Override
+    public net.kyori.adventure.util.TriState getFrictionState() {
+        return net.kyori.adventure.util.TriState.NOT_SET;
+    }
+
+    @Override
+    public void setFrictionState(net.kyori.adventure.util.TriState state) {
+    }
+
+    @Override
+    public boolean hasLeftShooter() {
+        return false;
+    }
+
+    @Override
+    public void setHasLeftShooter(boolean leftShooter) {
+    }
+
+    @Override
+    public boolean hasBeenShot() {
+        return true;
+    }
+
+    @Override
+    public void setHasBeenShot(boolean beenShot) {
+    }
+
+    @Override
+    public boolean canHitEntity(org.bukkit.entity.Entity entity) {
+        return true;
+    }
+
+    @Override
+    public void hitEntity(org.bukkit.entity.Entity entity) {
+    }
+
+    @Override
+    public void hitEntity(org.bukkit.entity.Entity entity, org.bukkit.util.Vector vector) {
+    }
+
+    @Override
+    public UUID getOwnerUniqueId() {
+        return null;
+    }
 }

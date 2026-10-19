@@ -33,7 +33,7 @@ public class EntityFakeArrowImpl extends SpectralArrow {
     }
 
     @Override
-    protected ItemStack getPickupItem() {
+    public ItemStack getPickupItem() {
         return new ItemStack(Items.ARROW);
     }
 

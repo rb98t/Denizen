@@ -153,7 +153,7 @@ public class ChunkLoadCommand extends AbstractCommand implements Listener {
                     }
                     chunk.addPluginChunkTicket(Denizen.getInstance());
                     if (length.getSeconds() > 0) {
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+                        com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
                             if (chunkDelays.containsKey(coord) && chunkDelays.get(coord) <= CoreUtilities.monotonicMillis()) {
                                 chunk.removePluginChunkTicket(Denizen.getInstance());
                                 chunkDelays.remove(coord);

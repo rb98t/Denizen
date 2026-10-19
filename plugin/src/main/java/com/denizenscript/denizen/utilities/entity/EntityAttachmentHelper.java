@@ -4,7 +4,7 @@ import com.denizenscript.denizen.Denizen;
 import com.denizenscript.denizen.objects.EntityTag;
 import com.denizenscript.denizen.utilities.packets.NetworkInterceptHelper;
 import org.bukkit.Location;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
@@ -67,7 +67,7 @@ public class EntityAttachmentHelper {
             if (checkTask != null) {
                 checkTask.cancel();
             }
-            BukkitRunnable runnable = new BukkitRunnable() {
+            DenizenRunnable runnable = new DenizenRunnable() {
                 int ticks = 0;
                 @Override
                 public void run() {
@@ -86,7 +86,7 @@ public class EntityAttachmentHelper {
             };
             runnable.run();
             checkTask = runnable.runTaskTimer(Denizen.getInstance(), 1, 1);
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     // Run a forcetele one second later just to guarantee sync for lagging clients

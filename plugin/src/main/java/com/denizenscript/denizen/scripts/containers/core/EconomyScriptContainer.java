@@ -138,7 +138,7 @@ public class EconomyScriptContainer extends ScriptContainer {
                     return null;
                 }
                 try {
-                    Future<String> future = Bukkit.getScheduler().callSyncMethod(Denizen.instance, () -> autoTag(value, player, defProvider));
+                    Future<String> future = com.denizenscript.denizen.utilities.FoliaScheduler.callSyncMethod(Denizen.instance, () -> autoTag(value, player, defProvider));
                     return future.get();
                 }
                 catch (Throwable ex) {
@@ -157,7 +157,7 @@ public class EconomyScriptContainer extends ScriptContainer {
                     return null;
                 }
                 try {
-                    Future<String> future = Bukkit.getScheduler().callSyncMethod(Denizen.instance, () -> runSubScript(pathName, player, amount));
+                    Future<String> future = com.denizenscript.denizen.utilities.FoliaScheduler.callSyncMethod(Denizen.instance, () -> runSubScript(pathName, player, amount));
                     return future.get();
                 }
                 catch (Throwable ex) {

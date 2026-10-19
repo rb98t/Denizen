@@ -24,7 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.util.*;
 
@@ -159,7 +159,7 @@ public class DisguiseCommand extends AbstractCommand {
             fakeToSelf = FakeEntity.showFakeEntityTo(Collections.singletonList(player), as, player.getLocation(), null, null);
             NMSHandler.packetHelper.generateNoCollideTeam(player.getPlayerEntity(), fakeToSelf.entity.getUUID());
             NMSHandler.packetHelper.sendEntityMetadataFlagsUpdate(player.getPlayerEntity(), player.getPlayerEntity());
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     if (fakeToSelf == null || !fakeToSelf.entity.isFakeValid || !player.isOnline()) {
@@ -178,7 +178,7 @@ public class DisguiseCommand extends AbstractCommand {
             }
             if (player.isOnline()) {
                 NMSHandler.packetHelper.removeNoCollideTeam(player.getPlayerEntity(), fakeToSelf.entity.getUUID());
-                new BukkitRunnable() {
+                new DenizenRunnable() {
                     @Override
                     public void run() {
                         if (player.isOnline()) {
@@ -229,7 +229,7 @@ public class DisguiseCommand extends AbstractCommand {
             if (!shouldFake || !event.getPlayer().getUniqueId().equals(entity.getUUID())) {
                 return;
             }
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     if (!event.getPlayer().isOnline() || !isActive) {
@@ -246,7 +246,7 @@ public class DisguiseCommand extends AbstractCommand {
                 return;
             }
             stopFake(new PlayerTag(event.getPlayer()));
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     if (!event.getPlayer().isOnline() || !isActive) {

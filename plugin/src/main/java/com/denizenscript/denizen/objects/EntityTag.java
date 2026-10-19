@@ -1004,10 +1004,7 @@ public class EntityTag implements ObjectTag, Adjustable, EntityFormObject, Flagg
             NMSHandler.entityHelper.look(entity, location.getYaw(), location.getPitch());
         }
         else {
-            getBukkitEntity().teleport(location, cause);
-            if (entity.getWorld().equals(location.getWorld())) { // Force the teleport through (for things like mounts)
-                NMSHandler.entityHelper.teleport(entity, location);
-            }
+            getBukkitEntity().teleportAsync(location, cause);
         }
     }
 

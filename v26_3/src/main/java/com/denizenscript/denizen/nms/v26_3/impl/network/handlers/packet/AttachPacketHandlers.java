@@ -99,7 +99,7 @@ public class AttachPacketHandlers {
                                 || offZ < Short.MIN_VALUE || offZ > Short.MAX_VALUE) {
                             ClientboundTeleportEntityPacket newTeleportPacket = new ClientboundTeleportEntityPacket(
                                     att.attached.getBukkitEntity().getEntityId(),
-                                    new PositionMoveRotation(CraftVector.toNMS(goalPosition), Vec3.ZERO, newYaw, pitch),
+                                    new PositionMoveRotation(new Vec3(goalPosition.getX(), goalPosition.getY(), goalPosition.getZ()), Vec3.ZERO, newYaw, pitch),
                                     Set.of(),
                                     e.onGround()
                             );
@@ -217,7 +217,7 @@ public class AttachPacketHandlers {
                         pitch = EntityAttachmentHelper.normalizeAngle(pitch + att.positionalOffset.getPitch());
                         pNew = new ClientboundTeleportEntityPacket(
                                 att.attached.getBukkitEntity().getEntityId(),
-                                new PositionMoveRotation(CraftVector.toNMS(resultPos), packet.change().deltaMovement(), newYaw, pitch),
+                                new PositionMoveRotation(new Vec3(resultPos.getX(), resultPos.getY(), resultPos.getZ()), packet.change().deltaMovement(), newYaw, pitch),
                                 packet.relatives(),
                                 packet.onGround()
                         );

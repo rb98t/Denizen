@@ -66,7 +66,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -395,7 +395,7 @@ public class Denizen extends JavaPlugin {
         Debug.log("Final full init took <A>" + (System.currentTimeMillis() - startTime) + "<W>ms.");
         final boolean hadCitizensBork = citizensBork;
         // Run everything else on the first server tick
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(this, () -> {
             hasTickedOnce = true;
             try {
                 if (hadCitizensBork) {
@@ -428,7 +428,7 @@ public class Denizen extends JavaPlugin {
                     Debug.echoError("Don't screw with bad config values.");
                     Bukkit.shutdown();
                 }
-                Bukkit.getScheduler().scheduleSyncRepeatingTask(Denizen.this, () -> {
+                com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncRepeatingTask(Denizen.this, () -> {
                     DenizenCore.tick(50); // Sadly, minecraft has no delta timing, so a tick is always 50ms.
                 }, 1, 1);
                 InventoryTag.setupInventoryTracker();
@@ -442,7 +442,7 @@ public class Denizen extends JavaPlugin {
                 Debug.echoError(ex);
             }
         }, 1);
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             @Override
             public void run() {
                 if (Settings.canRecordStats()) {
@@ -450,13 +450,13 @@ public class Denizen extends JavaPlugin {
                 }
             }
         }.runTaskTimer(this, 100, 20 * 60 * 60);
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             @Override
             public void run() {
                 PlayerFlagHandler.cleanCache();
             }
         }.runTaskTimer(this, 100, 20 * 60);
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             @Override
             public void run() {
                 if (!StrongWarning.recentWarnings.isEmpty()) {
@@ -497,7 +497,7 @@ public class Denizen extends JavaPlugin {
         InventoryScriptHelper.savePlayerInventories();
         triggerRegistry.disableCoreMembers();
         getLogger().log(Level.INFO, " v" + getDescription().getVersion() + " disabled.");
-        Bukkit.getServer().getScheduler().cancelTasks(this);
+        com.denizenscript.denizen.utilities.FoliaScheduler.cancelTasks(this);
         HandlerList.unregisterAll(this);
         saveSaves(true);
         worldFlags.shutdown();

@@ -12,7 +12,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 public class InvisibleTrait extends Trait implements Listener {
 
@@ -100,7 +100,7 @@ public class InvisibleTrait extends Trait implements Listener {
             setInvisible();
             // Workaround bug in Citizens on Paper servers - NPCs don't seem to actually spawn at startup til several ticks *after* the spawn event (2022/03/12)
             if (!npc.isSpawned()) {
-                new BukkitRunnable() {
+                new DenizenRunnable() {
                     int ticks = 0;
                     @Override
                     public void run() {

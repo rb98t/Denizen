@@ -17,7 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.help.HelpMap;
 import org.bukkit.help.HelpTopic;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -86,7 +86,7 @@ public class CommandScriptHelper implements Listener {
             // Mojang's version.
             // TODO: figure out a different workaround?
             if (Settings.overrideHelp()) {
-                new BukkitRunnable() {
+                new DenizenRunnable() {
                     @Override
                     public void run() {
                         if (knownCommands.get("help") instanceof HelpCommand) {

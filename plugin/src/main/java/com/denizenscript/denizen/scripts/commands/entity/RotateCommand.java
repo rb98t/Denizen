@@ -14,7 +14,7 @@ import com.denizenscript.denizencore.objects.core.ListTag;
 import com.denizenscript.denizencore.scripts.ScriptEntry;
 import com.denizenscript.denizencore.scripts.commands.AbstractCommand;
 import com.denizenscript.denizencore.scripts.commands.Holdable;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.util.*;
 
@@ -141,7 +141,7 @@ public class RotateCommand extends AbstractCommand implements Holdable {
         if (cancel) {
             return;
         }
-        BukkitRunnable task = new BukkitRunnable() {
+        DenizenRunnable task = new DenizenRunnable() {
             int ticks = 0;
             int maxTicks = duration.getTicksAsInt();
             ArrayList<EntityTag> unusedEntities = new ArrayList<>();

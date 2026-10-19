@@ -144,7 +144,7 @@ public class WeatherCommand extends AbstractCommand {
             Player player = Utilities.getEntryPlayer(scriptEntry).getPlayerEntity();
             Integer existingTask = resetTasks.get(player.getUniqueId());
             if (existingTask != null) {
-                Bukkit.getScheduler().cancelTask(existingTask);
+                com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(existingTask);
                 resetTasks.remove(player.getUniqueId());
             }
             if (value == Value.SUNNY) {
@@ -157,7 +157,7 @@ public class WeatherCommand extends AbstractCommand {
                 player.resetPlayerWeather();
             }
             if (resetAfter != null) {
-                int newTask = Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), player::resetPlayerWeather, resetAfter.getTicks());
+                int newTask = com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), player::resetPlayerWeather, resetAfter.getTicks());
                 resetTasks.put(player.getUniqueId(), newTask);
             }
         }

@@ -81,15 +81,14 @@ public class PauseCommand extends AbstractCommand {
         if (duration != null) {
             if (durations.containsKey(data)) {
                 try {
-                    Denizen.getInstance().getServer().getScheduler().cancelTask(durations.get(data));
+                    com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(durations.get(data));
                 }
                 catch (Exception e) {
                     Debug.echoError(scriptEntry, "There was an error pausing that!");
                     Debug.echoError(scriptEntry, e);
                 }
             }
-            durations.put(data, Denizen.getInstance()
-                    .getServer().getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(),
+            durations.put(data, com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(),
                             () -> {
                                 Debug.echoDebug(scriptEntry, "Running delayed task: " + (!pause ? "Pausing" : "Resuming") + " " + type);
                                 toggle(data, !pause);

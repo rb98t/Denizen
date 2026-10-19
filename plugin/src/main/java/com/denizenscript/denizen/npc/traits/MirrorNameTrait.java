@@ -28,11 +28,11 @@ public class MirrorNameTrait extends Trait {
         if (!npc.isSpawned() || npc.getEntity().getType() != EntityType.PLAYER) {
             return;
         }
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
             if (npc.isSpawned()) {
                 Location loc = npc.getStoredLocation().clone();
                 npc.despawn(DespawnReason.PENDING_RESPAWN);
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+                com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
                     npc.spawn(loc);
                 });
             }

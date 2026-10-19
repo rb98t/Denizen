@@ -347,7 +347,7 @@ public class ChatTrigger extends AbstractTrigger implements Listener {
             return;
         }
         FutureTask<ChatContext> futureTask = new FutureTask<>(() -> process(event.getPlayer(), event.getMessage()));
-        Bukkit.getScheduler().runTask(Denizen.getInstance(), futureTask);
+        com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), futureTask);
         try {
             ChatContext context = futureTask.get();
             if (context.wasTriggered()) {

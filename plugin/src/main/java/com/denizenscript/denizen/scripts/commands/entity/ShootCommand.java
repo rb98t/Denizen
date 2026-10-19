@@ -30,7 +30,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
@@ -316,7 +316,7 @@ public class ShootCommand extends AbstractCommand implements Listener, Holdable 
         final LocationTag start = new LocationTag(lastEntity.getLocation());
         // A task used to trigger a script if the entity is no longer
         // being shot, when the script argument is used
-        BukkitRunnable task = new BukkitRunnable() {
+        DenizenRunnable task = new DenizenRunnable() {
             boolean flying = true;
             LocationTag lastLocation = null;
             Vector lastVelocity = null;

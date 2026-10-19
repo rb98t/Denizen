@@ -7,7 +7,7 @@ import com.denizenscript.denizen.objects.LocationTag;
 import com.denizenscript.denizen.objects.PlayerTag;
 import com.denizenscript.denizen.utilities.packets.NetworkInterceptHelper;
 import com.denizenscript.denizencore.objects.core.DurationTag;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
@@ -100,7 +100,7 @@ public class FakeEntity {
         }
         this.entity = entity;
         if (duration != null && duration.getTicks() > 0) {
-            currentTask = new BukkitRunnable() {
+            currentTask = new DenizenRunnable() {
                 @Override
                 public void run() {
                     currentTask = null;

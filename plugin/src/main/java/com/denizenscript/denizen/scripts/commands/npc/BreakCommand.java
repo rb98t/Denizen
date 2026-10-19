@@ -139,7 +139,7 @@ public class BreakCommand extends AbstractCommand implements Holdable {
         BlockBreaker breaker = npc.getCitizen().getBlockBreaker(location.getBlock(), config);
         if (breaker.shouldExecute()) {
             TaskRunnable run = new TaskRunnable(breaker);
-            run.taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(Denizen.getInstance(), run, 0, 1);
+            run.taskId = com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncRepeatingTask(Denizen.getInstance(), run, 0, 1);
         }
         else {
             se.setFinished(true);
@@ -157,7 +157,7 @@ public class BreakCommand extends AbstractCommand implements Holdable {
         @Override
         public void run() {
             if (breaker.run() != BehaviorStatus.RUNNING) {
-                Bukkit.getScheduler().cancelTask(taskId);
+                com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(taskId);
                 breaker.reset();
             }
         }

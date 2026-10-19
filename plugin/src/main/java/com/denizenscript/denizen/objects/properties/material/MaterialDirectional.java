@@ -341,8 +341,8 @@ public class MaterialDirectional implements Property {
             else if (isRail() && mechanism.requireEnum(Rail.Shape.class)) {
                 getRail().setShape(Rail.Shape.valueOf(mechanism.getValue().asString().toUpperCase()));
             }
-            else if (isJigsaw() && mechanism.requireEnum(Jigsaw.Orientation.class)) {
-                getJigsaw().setOrientation(Jigsaw.Orientation.valueOf(mechanism.getValue().asString().toUpperCase()));
+            else if (isJigsaw() && mechanism.requireEnum(org.bukkit.block.Orientation.class)) {
+                getJigsaw().setOrientation(org.bukkit.block.Orientation.valueOf(mechanism.getValue().asString().toUpperCase()));
             }
             else if (!isJigsaw() && mechanism.requireEnum(BlockFace.class)) {
                 setFacing(BlockFace.valueOf(mechanism.getValue().asString().toUpperCase()));

@@ -98,7 +98,7 @@ public class FakeBlockHelper {
                 for (FakeBlock block : blocks) {
                     LocationTag loc = block.location;
                     if (loc.getBlockX() == x && loc.getBlockY() == y && loc.getBlockZ() == z && block.material != null) {
-                        BlockEntity newBlockEnt = CraftBlockStates.createNewTileEntity(block.material.getMaterial());
+                        BlockEntity newBlockEnt = CraftBlockStates.createNewBlockEntity(block.material.getMaterial());
                         Object newData = CHUNKDATA_BLOCK_ENTITY_CONSTRUCTOR.invoke(xz, y, newBlockEnt.getType(), Optional.ofNullable(newBlockEnt).map(blockEntity -> blockEntity.getUpdateTag(CraftRegistry.getMinecraftRegistry())));
                         blockEntities.set(i, newData);
                         break;

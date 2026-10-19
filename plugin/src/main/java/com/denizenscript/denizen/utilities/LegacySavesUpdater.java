@@ -13,7 +13,7 @@ import com.denizenscript.denizencore.scripts.ScriptHelper;
 import com.denizenscript.denizencore.utilities.CoreUtilities;
 import com.denizenscript.denizencore.utilities.YamlConfiguration;
 import com.denizenscript.denizencore.utilities.text.StringHolder;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -116,7 +116,7 @@ public class LegacySavesUpdater {
         }
         if (saveSection.contains("NPCs")) {
             final YamlConfiguration npcsSection = saveSection.getConfigurationSection("NPCs");
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     Debug.log("==== Late update NPC data ====");

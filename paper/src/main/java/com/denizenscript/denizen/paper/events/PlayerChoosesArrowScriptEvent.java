@@ -82,7 +82,7 @@ public class PlayerChoosesArrowScriptEvent extends BukkitScriptEvent implements 
     public void cancellationChanged() {
         if (cancelled) {
             final Player p = event.getPlayer();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), p::updateInventory, 1);
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), p::updateInventory, 1);
         }
         super.cancellationChanged();
     }

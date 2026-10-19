@@ -133,7 +133,7 @@ public class DisplayItemCommand extends AbstractCommand implements Listener {
     public void onItemDespawn(ItemDespawnEvent event) {
         if (protectedEntities.contains(event.getEntity().getUniqueId())) {
             event.setCancelled(true);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
                 if (event.getEntity().isValid() && !event.getEntity().isDead()) {
                     NMSHandler.entityHelper.setTicksLived(event.getEntity(), -1000);
                 }
@@ -164,7 +164,7 @@ public class DisplayItemCommand extends AbstractCommand implements Listener {
         protectedEntities.add(itemUUID);
         scriptEntry.saveObject("dropped", new EntityTag(dropped));
         if (ticks > 0) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(),
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(),
                     () -> {
                         protectedEntities.remove(itemUUID);
                         if (dropped.isValid() && !dropped.isDead()) {

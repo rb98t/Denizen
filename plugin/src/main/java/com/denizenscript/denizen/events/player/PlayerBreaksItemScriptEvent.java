@@ -14,7 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 public class PlayerBreaksItemScriptEvent extends BukkitScriptEvent implements Listener {
 
@@ -91,7 +91,7 @@ public class PlayerBreaksItemScriptEvent extends BukkitScriptEvent implements Li
             final Player player = event.getPlayer();
             final ItemStack itemstack = event.getBrokenItem();
             itemstack.setAmount(itemstack.getAmount() + 1);
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 public void run() {
                     itemstack.setDurability(itemstack.getType().getMaxDurability());
                     player.updateInventory();

@@ -29,7 +29,7 @@ public class DenizenPacketHandler {
         if (!ResourcePackStatusScriptEvent.instance.eventData.isEnabled) {
             return;
         }
-        Bukkit.getScheduler().runTask(Denizen.getInstance(), () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), () -> {
             ResourcePackStatusScriptEvent event = ResourcePackStatusScriptEvent.instance;
             event.status = new ElementTag(resourcePackStatus.getStatus());
             event.player = PlayerTag.mirrorBukkitPlayer(player);
@@ -61,7 +61,7 @@ public class DenizenPacketHandler {
                 process.run();
             }
             else {
-                Bukkit.getScheduler().runTask(Denizen.getInstance(), process);
+                com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), process);
             }
         }
         return false;
@@ -77,7 +77,7 @@ public class DenizenPacketHandler {
             return;
         }
         if (isHoldingRaisable(player)) {
-            Bukkit.getScheduler().runTask(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), () -> {
                 PlayerRaiseLowerItemScriptEvent.signalDidRaise(player);
             });
         }
@@ -88,7 +88,7 @@ public class DenizenPacketHandler {
             return;
         }
         if (isHoldingRaisable(player)) {
-            Bukkit.getScheduler().runTask(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), () -> {
                 PlayerRaiseLowerItemScriptEvent.signalDidLower(player, "lower");
             });
         }
@@ -125,7 +125,7 @@ public class DenizenPacketHandler {
                 }
                 else {
                     FutureTask<PlayerReceivesMessageScriptEvent> futureTask = new FutureTask<>(eventCall);
-                    Bukkit.getScheduler().runTask(Denizen.getInstance(), futureTask);
+                    com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), futureTask);
                     return futureTask.get();
                 }
             }

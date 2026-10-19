@@ -151,7 +151,7 @@ public class TimeCommand extends AbstractCommand {
                 else {
                     Integer existingTask = resetTasks.get(player.getUniqueId());
                     if (existingTask != null) {
-                        Bukkit.getScheduler().cancelTask(existingTask);
+                        com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(existingTask);
                         resetTasks.remove(player.getUniqueId());
                     }
                     if (freeze == null || !freeze.asBoolean()) {
@@ -162,7 +162,7 @@ public class TimeCommand extends AbstractCommand {
                         player.setPlayerTime(value.getTicks(), false);
                     }
                     if (resetAfter != null) {
-                        int newTask = Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), player::resetPlayerTime, resetAfter.getTicks());
+                        int newTask = com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), player::resetPlayerTime, resetAfter.getTicks());
                         resetTasks.put(player.getUniqueId(), newTask);
                     }
                 }

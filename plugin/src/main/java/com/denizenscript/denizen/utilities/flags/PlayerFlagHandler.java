@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.io.File;
 import java.lang.ref.SoftReference;
@@ -99,7 +99,7 @@ public class PlayerFlagHandler implements Listener {
         if (saveOnlyWhenWorldSaveOn && !Bukkit.getWorlds().get(0).isAutoSave()) {
             return;
         }
-        BukkitRunnable expireTask = new BukkitRunnable() {
+        DenizenRunnable expireTask = new DenizenRunnable() {
             @Override
             public void run() {
                 if (cache.shouldExpire()) {
@@ -109,7 +109,7 @@ public class PlayerFlagHandler implements Listener {
             }
         };
         if (cache.savingNow.get() || cache.loadingNow.get()) {
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     CachedPlayerFlag newCache = playerFlagTrackerCache.get(id);
@@ -127,7 +127,7 @@ public class PlayerFlagHandler implements Listener {
         cache.tracker.modified = false;
         String text = cache.tracker.toString();
         cache.savingNow.set(true);
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             @Override
             public void run() {
                 try {
@@ -237,11 +237,11 @@ public class PlayerFlagHandler implements Listener {
             }
             playerFlagTrackerCache.put(id, newCache);
             CompletableFuture future = new CompletableFuture();
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     loadFlags(id, newCache);
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.instance, () -> {
+                    com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.instance, () -> {
                         if (CoreConfiguration.debugVerbose) {
                             Debug.echoError("Verbose - flag tracker async loaded " + id);
                         }
@@ -307,7 +307,7 @@ public class PlayerFlagHandler implements Listener {
         }
         UUID id = event.getUniqueId();
         if (!Bukkit.isPrimaryThread()) {
-            Future<Future> future = Bukkit.getScheduler().callSyncMethod(Denizen.getInstance(), () -> {
+            Future<Future> future = com.denizenscript.denizen.utilities.FoliaScheduler.callSyncMethod(Denizen.getInstance(), () -> {
                 return loadAsync(id);
             });
             try {

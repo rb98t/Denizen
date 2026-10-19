@@ -213,8 +213,7 @@ public class PacketHelperImpl implements PacketHelper {
     }
 
     public static void forceRespawnPlayerEntity(Entity entity, Player viewer) {
-        ChunkMap tracker = ((ServerLevel) ((CraftEntity) entity).getHandle().level()).getChunkSource().chunkMap;
-        ChunkMap.TrackedEntity entityTracker = tracker.entityMap.get(entity.getEntityId());
+        ChunkMap.TrackedEntity entityTracker = ((CraftEntity) entity).getHandle().moonrise$getTrackedEntity();
         if (entityTracker != null) {
             try {
                 ServerEntity entry = (ServerEntity) ENTITY_TRACKER_ENTRY_GETTER.get(entityTracker);

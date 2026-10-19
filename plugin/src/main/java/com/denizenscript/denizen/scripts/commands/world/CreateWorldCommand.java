@@ -239,12 +239,12 @@ public class CreateWorldCommand extends AbstractCommand implements Holdable {
             scriptEntry.setFinished(true);
         };
         if (scriptEntry.shouldWaitFor() && copy_from != null) {
-            Bukkit.getScheduler().runTaskAsynchronously(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTaskAsynchronously(Denizen.getInstance(), () -> {
                 if (!copyRunnable.get()) {
                     scriptEntry.setFinished(true);
                     return;
                 }
-                Bukkit.getScheduler().runTask(Denizen.getInstance(), createRunnable);
+                com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), createRunnable);
             });
         }
         else {

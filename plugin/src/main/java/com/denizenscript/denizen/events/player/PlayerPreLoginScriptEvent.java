@@ -129,7 +129,7 @@ public class PlayerPreLoginScriptEvent extends BukkitScriptEvent implements List
     public void onPlayerLogin(AsyncPlayerPreLoginEvent event) {
         if (!Bukkit.isPrimaryThread()) {
             PlayerPreLoginScriptEvent altEvent = (PlayerPreLoginScriptEvent) clone();
-            Future future = Bukkit.getScheduler().callSyncMethod(Denizen.getInstance(), () -> {
+            Future future = com.denizenscript.denizen.utilities.FoliaScheduler.callSyncMethod(Denizen.getInstance(), () -> {
                 altEvent.onPlayerLogin(event);
                 return null;
             });

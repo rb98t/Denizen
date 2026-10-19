@@ -141,9 +141,9 @@ public class HealthTrait extends Trait implements Listener {
         dying = false;
         setHealth();
 
-        void_watcher_task = Bukkit.getScheduler().scheduleSyncRepeatingTask(Denizen.getInstance(), () -> {
+        void_watcher_task = com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncRepeatingTask(Denizen.getInstance(), () -> {
             if (!npc.isSpawned()) {
-                Bukkit.getScheduler().cancelTask(void_watcher_task);
+                com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(void_watcher_task);
                 return;
             }
             if (npc.getStoredLocation().getY() < -1000) {
@@ -287,7 +287,7 @@ public class HealthTrait extends Trait implements Listener {
         //die();
 
         if (respawn && (getRespawnDelay().getTicks() > 0)) {
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(),
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(),
                     () -> {
                         if (CitizensAPI.getNPCRegistry().getById(npc.getId()) == null || npc.isSpawned()) {
                             return;

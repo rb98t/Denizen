@@ -18,7 +18,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -92,7 +92,7 @@ public class CuboidBlockSet implements BlockSet {
         blocks = new FullBlockData[x_width * y_length * z_height];
         double lowX = low.getBlockX() + 0.5, lowY = low.getBlockY() + 0.5, lowZ = low.getBlockZ() + 0.5;
         Location refLoc = low.clone();
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             int index = 0;
             @Override
             public void run() {
@@ -301,7 +301,7 @@ public class CuboidBlockSet implements BlockSet {
     @Override
     public void setBlocksDelayed(final Runnable runme, final InputParams input, long maxDelayMs) {
         final long goal = (long)x_width * y_length * z_height;
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             int index = 0;
             @Override
             public void run() {

@@ -21,11 +21,11 @@ public class MirrorTrait extends Trait {
     }
 
     public void respawn() {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
             if (npc.isSpawned()) {
                 Location loc = npc.getStoredLocation().clone();
                 npc.despawn(DespawnReason.PENDING_RESPAWN);
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+                com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
                     npc.spawn(loc);
                 });
             }

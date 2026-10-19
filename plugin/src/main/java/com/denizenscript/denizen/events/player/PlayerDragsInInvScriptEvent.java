@@ -18,7 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 public class PlayerDragsInInvScriptEvent extends BukkitScriptEvent implements Listener {
 
@@ -124,7 +124,7 @@ public class PlayerDragsInInvScriptEvent extends BukkitScriptEvent implements Li
     public void cancellationChanged() {
         if (cancelled) {
             final InventoryHolder holder = inventory.getHolder();
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     entity.getPlayerEntity().updateInventory();

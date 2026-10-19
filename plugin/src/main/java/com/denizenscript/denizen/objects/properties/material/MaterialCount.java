@@ -26,7 +26,6 @@ public class MaterialCount extends MaterialProperty<ElementTag> {
                 || data instanceof TurtleEgg
                 || data instanceof RespawnAnchor
                 || data instanceof Candle
-                || (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19) && data instanceof PinkPetals)
                 || (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && (data instanceof FlowerBed
                                                                         || data instanceof LeafLitter));
     }
@@ -44,9 +43,6 @@ public class MaterialCount extends MaterialProperty<ElementTag> {
         }
         else if (getBlockData() instanceof Candle candle) {
             return new ElementTag(candle.getCandles());
-        }
-        else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19) && getBlockData() instanceof PinkPetals pinkPetals) {
-            return new ElementTag(pinkPetals.getFlowerAmount());
         }
         else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getBlockData() instanceof FlowerBed flowerBed) {
             return new ElementTag(flowerBed.getFlowerAmount());
@@ -76,9 +72,6 @@ public class MaterialCount extends MaterialProperty<ElementTag> {
             }
             else if (getBlockData() instanceof Candle candle) {
                 candle.setCandles(count);
-            }
-            else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19) && getBlockData() instanceof PinkPetals pinkPetals) {
-                pinkPetals.setFlowerAmount(count);
             }
             else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getBlockData() instanceof FlowerBed flowerBed) {
                 flowerBed.setFlowerAmount(count);
@@ -136,9 +129,6 @@ public class MaterialCount extends MaterialProperty<ElementTag> {
         else if (getBlockData() instanceof Candle candle) {
             return candle.getMaximumCandles();
         }
-        else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19) && getBlockData() instanceof PinkPetals pinkPetals) {
-            return pinkPetals.getMaximumFlowerAmount();
-        }
         else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getBlockData() instanceof FlowerBed flowerBed) {
             return flowerBed.getMaximumFlowerAmount();
         }
@@ -159,9 +149,6 @@ public class MaterialCount extends MaterialProperty<ElementTag> {
             return 0;
         }
         else if (getBlockData() instanceof Candle) {
-            return 1;
-        }
-        else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_19) && getBlockData() instanceof PinkPetals) {
             return 1;
         }
         else if (NMSHandler.getVersion().isAtLeast(NMSVersion.v1_21) && getBlockData() instanceof FlowerBed) {

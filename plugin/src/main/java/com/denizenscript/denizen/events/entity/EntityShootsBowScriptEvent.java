@@ -90,7 +90,7 @@ public class EntityShootsBowScriptEvent extends BukkitScriptEvent implements Lis
                 event.setConsumeItem(false);
                 if (entity.isPlayer()) {
                     final Player p = entity.getPlayer();
-                    Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), p::updateInventory, 1);
+                    com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), p::updateInventory, 1);
                 }
                 return true;
             }
@@ -145,7 +145,7 @@ public class EntityShootsBowScriptEvent extends BukkitScriptEvent implements Lis
     public void cancellationChanged() {
         if (cancelled && entity.isPlayer()) {
             final Player p = entity.getPlayer();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), p::updateInventory, 1);
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), p::updateInventory, 1);
         }
         super.cancellationChanged();
     }

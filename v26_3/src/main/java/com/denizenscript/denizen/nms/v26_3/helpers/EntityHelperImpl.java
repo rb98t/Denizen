@@ -42,6 +42,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PositionMoveRotation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.item.FallingBlockEntity;
@@ -75,7 +76,7 @@ import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
@@ -227,7 +228,7 @@ public class EntityHelperImpl extends EntityHelper {
         final int locationNearInt = (int) Math.floor(lead);
         final boolean hasMax = maxRange > lead;
 
-        followTasks.put(follower.getUniqueId(), new BukkitRunnable() {
+        followTasks.put(follower.getUniqueId(), new DenizenRunnable() {
 
             private boolean inRadius = false;
 
@@ -299,13 +300,16 @@ public class EntityHelperImpl extends EntityHelper {
         }
         path = entityNavigation.createPath(location.getX(), location.getY(), location.getZ(), 1);
         if (path != null) {
-            nmsMob.goalSelector.enableControlFlag(Goal.Flag.MOVE);
+            GoalSelector selector = ReflectionHelper.getFieldValue(net.minecraft.world.entity.Mob.class, "goalSelector", nmsMob);
+            if (selector != null) {
+                selector.enableControlFlag(Goal.Flag.MOVE);
+            }
             entityNavigation.moveTo(path, 1D);
             final double oldSpeed = nmsMob.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue();
             if (speed != null) {
                 nmsMob.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
             }
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     if (!entity.isValid()) {
@@ -336,14 +340,13 @@ public class EntityHelperImpl extends EntityHelper {
         //if (!Utilities.checkLocation(location, entity.getLocation(), 20)) {
         // TODO: generate waypoints to the target location?
         else {
-            entity.teleport(location);
+            entity.teleportAsync(location);
         }
     }
 
     @Override
     public void sendAllUpdatePackets(Entity entity) {
-        ChunkMap tracker = ((ServerLevel) ((CraftEntity) entity).getHandle().level()).getChunkSource().chunkMap;
-        ChunkMap.TrackedEntity entityTracker = tracker.entityMap.get(entity.getEntityId());
+        ChunkMap.TrackedEntity entityTracker = ((CraftEntity) entity).getHandle().moonrise$getTrackedEntity();
         if (entityTracker == null) {
             return;
         }
@@ -368,7 +371,7 @@ public class EntityHelperImpl extends EntityHelper {
         }
         ServerPlayer nmsPlayer = ((CraftPlayer) pl).getHandle();
         if (nmsPlayer.connection != null && !pl.equals(entity)) {
-            ChunkMap.TrackedEntity entry = nmsPlayer.level().getChunkSource().chunkMap.entityMap.get(entity.getEntityId());
+            ChunkMap.TrackedEntity entry = ((CraftEntity) entity).getHandle().moonrise$getTrackedEntity();
             if (entry != null) {
                 entry.removePlayer(nmsPlayer);
             }
@@ -386,7 +389,7 @@ public class EntityHelperImpl extends EntityHelper {
         }
         ServerPlayer nmsPlayer = ((CraftPlayer) pl).getHandle();
         if (nmsPlayer.connection != null && !pl.equals(entity)) {
-            ChunkMap.TrackedEntity entry = nmsPlayer.level().getChunkSource().chunkMap.entityMap.get(entity.getEntityId());
+            ChunkMap.TrackedEntity entry = ((CraftEntity) entity).getHandle().moonrise$getTrackedEntity();
             if (entry != null) {
                 entry.removePlayer(nmsPlayer);
                 entry.updatePlayer(nmsPlayer);
@@ -603,14 +606,14 @@ public class EntityHelperImpl extends EntityHelper {
         return switch (cause) {
             case CONTACT -> sources.cactus();
             case ENTITY_ATTACK -> sources.mobAttack(nmsSource instanceof net.minecraft.world.entity.LivingEntity nmsLivingEntity ? nmsLivingEntity : null);
-            case ENTITY_SWEEP_ATTACK -> src != sources.generic() ? src.sweep() : src;
+            case ENTITY_SWEEP_ATTACK -> src;
             case PROJECTILE -> sources.thrown(nmsSource, nmsSource != null && nmsSource.getBukkitEntity() instanceof Projectile projectile
                         && projectile.getShooter() instanceof CraftEntity shooter ? shooter.getHandle() : null);
             case SUFFOCATION -> sources.inWall();
             case FALL -> sources.fall();
             case FIRE -> sources.inFire();
             case FIRE_TICK -> sources.onFire();
-            case MELTING -> sources.melting();
+            case MELTING -> sources.onFire();
             case LAVA -> sources.lava();
             case DROWNING -> sources.drown();
             case BLOCK_EXPLOSION -> nmsSource instanceof PrimedTnt primedTnt ? sources.explosion(primedTnt, primedTnt.getOwner()) : sources.explosion(null);
@@ -618,7 +621,7 @@ public class EntityHelperImpl extends EntityHelper {
             case VOID -> sources.fellOutOfWorld();
             case LIGHTNING -> sources.lightningBolt();
             case STARVATION -> sources.starve();
-            case POISON -> sources.poison();
+            case POISON -> sources.magic();
             case MAGIC -> sources.magic();
             case WITHER -> sources.wither();
             case FALLING_BLOCK -> sources.fallingBlock(nmsSource);
@@ -705,8 +708,7 @@ public class EntityHelperImpl extends EntityHelper {
     @Override
     public void setTrackingRange(Entity entity, int range) {
         try {
-            ChunkMap map = ((CraftWorld) entity.getWorld()).getHandle().getChunkSource().chunkMap;
-            ChunkMap.TrackedEntity entry = map.entityMap.get(entity.getEntityId());
+            ChunkMap.TrackedEntity entry = ((CraftEntity) entity).getHandle().moonrise$getTrackedEntity();
             if (entry != null) {
                 TRACKING_RANGE_SETTER.invoke(entry, range);
             }
@@ -746,7 +748,7 @@ public class EntityHelperImpl extends EntityHelper {
             nmsEntity.unsetRemoved();
             nmsEntity.setUUID(id);
             if (nmsEntity instanceof ServerPlayer nmsPlayer) {
-                playerList.placeNewPlayer(DenizenNetworkManagerImpl.getConnection(nmsPlayer), nmsPlayer, new CommonListenerCookie(nmsPlayer.getGameProfile(), nmsPlayer.connection.latency(), nmsPlayer.clientInformation(), nmsPlayer.connection.isTransferred()));
+                playerList.placeNewPlayer(DenizenNetworkManagerImpl.getConnection(nmsPlayer), nmsPlayer, CommonListenerCookie.createInitial(nmsPlayer.getGameProfile(), nmsPlayer.connection.isTransferred()));
             }
             else {
                 level.addFreshEntity(nmsEntity);

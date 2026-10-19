@@ -79,12 +79,12 @@ public class WorldHelperImpl implements WorldHelper {
     @Override
     public void setDayTime(World world, long time) {
         ServerLevel nmsWorld = ((CraftWorld) world).getHandle();
-        nmsWorld.dimensionType().defaultClock().ifPresent((clock) -> nmsWorld.clockManager().setTotalTicks(clock, time, TimeSkipEvent.SkipReason.CUSTOM));
+        nmsWorld.dimensionType().defaultClock().ifPresent((clock) -> nmsWorld.clockManager().setTotalTicks(clock, time));
     }
 
     @Override
     public void setGameTime(World world, long time) {
-        ((PrimaryLevelData) ((CraftWorld) world).getHandle().levelData).setGameTime(time);
+        ((CraftWorld) world).getHandle().serverLevelData.setGameTime(time);
     }
 
     // net.minecraft.server.level.ServerLevel#wakeUpAllPlayers()

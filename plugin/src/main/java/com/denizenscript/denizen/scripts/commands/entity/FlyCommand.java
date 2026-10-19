@@ -18,7 +18,7 @@ import com.denizenscript.denizencore.scripts.commands.AbstractCommand;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -187,7 +187,7 @@ public class FlyCommand extends AbstractCommand {
         }
         final Entity entity = entities.get(entities.size() - 1).getBukkitEntity();
         final LivingEntity finalController = controller != null ? controller.getLivingEntity() : null;
-        BukkitRunnable task = new BukkitRunnable() {
+        DenizenRunnable task = new DenizenRunnable() {
             Location location = null;
             Boolean flying = true;
             public void run() {

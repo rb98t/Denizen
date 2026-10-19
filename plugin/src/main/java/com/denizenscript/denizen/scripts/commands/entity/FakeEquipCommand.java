@@ -17,7 +17,7 @@ import com.denizenscript.denizencore.scripts.ScriptEntry;
 import com.denizenscript.denizencore.scripts.commands.AbstractCommand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
@@ -222,7 +222,7 @@ public class FakeEquipCommand extends AbstractCommand {
                         entityData.cancelTask = null;
                     }
                     if (duration != null && duration.getTicks() > 0) {
-                        entityData.cancelTask = new BukkitRunnable() {
+                        entityData.cancelTask = new DenizenRunnable() {
                             @Override
                             public void run() {
                                 entityData.cancelTask = null;

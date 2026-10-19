@@ -86,7 +86,7 @@ public class ProximityTrigger extends AbstractTrigger implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getServer().getPluginManager().registerEvents(this, Denizen.getInstance());
-        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Denizen.getInstance(), () -> {
+        taskID = com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncRepeatingTask(Denizen.getInstance(), () -> {
             if (timesUsed == 0) { // skip if not in use
                 return;
             }
@@ -187,7 +187,7 @@ public class ProximityTrigger extends AbstractTrigger implements Listener {
 
     @Override
     public void onDisable() {
-        Bukkit.getScheduler().cancelTask(taskID);
+        com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(taskID);
     }
 
     /**

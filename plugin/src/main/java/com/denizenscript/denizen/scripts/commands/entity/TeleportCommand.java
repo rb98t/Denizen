@@ -225,7 +225,7 @@ public class TeleportCommand extends AbstractCommand {
     public static void handleVehicle(Entity vehicle, Entity passenger, Location target, PlayerTeleportEvent.TeleportCause cause) {
         if (vehicle != null) {
             vehicle.teleport(target, cause);
-            Bukkit.getScheduler().runTask(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), () -> {
                 if (vehicle.isValid() && passenger.isValid()) {
                     vehicle.addPassenger(passenger);
                 }

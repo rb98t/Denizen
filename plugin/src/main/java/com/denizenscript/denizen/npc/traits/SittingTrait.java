@@ -26,7 +26,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 public class SittingTrait extends Trait implements Listener {
 
@@ -61,7 +61,7 @@ public class SittingTrait extends Trait implements Listener {
     @Override
     public void onSpawn() {
         if (!sitting) {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.instance, () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.instance, () -> {
                 if (!sitting && npc != null) {
                     npc.removeTrait(SittingTrait.class);
                 }
@@ -76,7 +76,7 @@ public class SittingTrait extends Trait implements Listener {
             chairLocation = chairLocation.clone();
             chairLocation.setYaw(npc.getStoredLocation().getYaw());
             chairLocation.setPitch(npc.getStoredLocation().getPitch());
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> sit(chairLocation), 1);
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> sit(chairLocation), 1);
         }
     }
 
@@ -270,12 +270,12 @@ public class SittingTrait extends Trait implements Listener {
             }
             else {
                 Messaging.debug("(Denizen/SittingTrait) retrying failed sit for", npc.getId());
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> { if (npc.isSpawned()) { forceEntitySit(entity, location, retryCount + 1); } }, 5);
+                com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> { if (npc.isSpawned()) { forceEntitySit(entity, location, retryCount + 1); } }, 5);
             }
             return;
         }
         holder.data().set("is-denizen-seat", true);
-        new BukkitRunnable() {
+        new DenizenRunnable() {
             @Override
             public void cancel() {
                 super.cancel();

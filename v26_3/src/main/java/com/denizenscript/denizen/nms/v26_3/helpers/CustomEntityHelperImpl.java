@@ -118,7 +118,7 @@ public class CustomEntityHelperImpl implements CustomEntityHelper {
         GameProfile gameProfile = ProfileEditorImpl.getGameProfile(playerProfile);
         final EntityFakePlayerImpl fakePlayer = new EntityFakePlayerImpl(worldServer.getServer(), worldServer, gameProfile, ClientInformation.createDefault(), doAdd);
 
-        fakePlayer.forceSetPositionRotation(location.getX(), location.getY(), location.getZ(),
+        fakePlayer.snapTo(location.getX(), location.getY(), location.getZ(),
                 location.getYaw(), location.getPitch());
         CraftFakePlayerImpl craftFakePlayer = fakePlayer.getBukkitEntity();
         craftFakePlayer.fullName = fullName;

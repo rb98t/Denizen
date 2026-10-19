@@ -68,7 +68,7 @@ import org.bukkit.craftbukkit.util.CraftNamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
@@ -93,7 +93,7 @@ public class PlayerHelperImpl extends PlayerHelper {
     @Override
     public void deTrackEntity(Player player, Entity entity) {
         ServerPlayer nmsPlayer = ((CraftPlayer) player).getHandle();
-        ChunkMap.TrackedEntity tracker = nmsPlayer.level().getChunkSource().chunkMap.entityMap.get(entity.getEntityId());
+        ChunkMap.TrackedEntity tracker = ((CraftEntity) entity).getHandle().moonrise$getTrackedEntity();
         if (tracker == null) {
             if (NMSHandler.debugPackets) {
                 DenizenNetworkManagerImpl.doPacketOutput("Failed to de-track entity " + entity.getEntityId() + " for " + player.getName() + ": tracker null");
@@ -141,7 +141,6 @@ public class PlayerHelperImpl extends PlayerHelper {
             }
         }
 
-        @Override
         public void sendToTrackingPlayersFilteredAndSelf(Packet<? super ClientGamePacketListener> packet, Predicate<ServerPlayer> predicate) {
             sendToTrackingPlayersFiltered(packet, predicate);
         }
@@ -216,7 +215,7 @@ public class PlayerHelperImpl extends PlayerHelper {
             final TrackerData data = new TrackerData(player, tracker);
             trackers.add(data);
             if (autoTrack) {
-                new BukkitRunnable() {
+                new DenizenRunnable() {
                     boolean wasOnline = true;
                     @Override
                     public void run() {
@@ -485,12 +484,6 @@ public class PlayerHelperImpl extends PlayerHelper {
         AABB boundingBox = AABB.ofSize(nmsPlayer.getBoundingBox().getCenter(), 32, 32, 32);
         for (net.minecraft.world.entity.Entity nmsEntity : nmsWorld.getEntitiesOfClass(net.minecraft.world.entity.Entity.class, boundingBox, nmsEntity -> nmsEntity instanceof Leashable nmsLeashable && nmsPlayer.equals(nmsLeashable.getLeashHolder()))) {
             nmsPlayer.connection.send(new ClientboundSetEntityLinkPacket(nmsEntity, nmsPlayer));
-        }
-        if (!nmsPlayer.getCooldowns().cooldowns.isEmpty()) {
-            int tickCount = nmsPlayer.getCooldowns().tickCount;
-            for (Map.Entry<Identifier, ItemCooldowns.CooldownInstance> entry : nmsPlayer.getCooldowns().cooldowns.entrySet()) {
-                nmsPlayer.connection.send(new ClientboundCooldownPacket(entry.getKey(), entry.getValue().endTime - tickCount));
-            }
         }
         nmsPlayer.connection.send(new ClientboundSetExperiencePacket(nmsPlayer.experienceProgress, nmsPlayer.totalExperience, nmsPlayer.experienceLevel));
         for (MobEffectInstance nmsEffect : nmsPlayer.getActiveEffects()) {

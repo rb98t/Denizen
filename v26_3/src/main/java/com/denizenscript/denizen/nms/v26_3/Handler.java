@@ -151,23 +151,20 @@ public class Handler extends NMSHandler {
 
     @Override
     public void disableAsyncCatcher() {
-        wasAsyncCatcherEnabled = AsyncCatcher.enabled;
-        AsyncCatcher.enabled = false;
     }
 
     @Override
     public void undisableAsyncCatcher() {
-        AsyncCatcher.enabled = wasAsyncCatcherEnabled;
     }
 
     @Override
     public boolean isExactServerVersionMatch() {
-        return Denizen.supportsPaper ? SharedConstants.getCurrentVersion().id().equals("26.3") : CraftMagicNumbers.INSTANCE.getMappingsVersion().equals("e8ece90188c951d866bd2fffc52c803e");
+        return SharedConstants.getCurrentVersion().id().equals("26.3");
     }
 
     @Override
     public double[] getRecentTps() {
-        return ((CraftServer) Bukkit.getServer()).getServer().recentTps;
+        return Bukkit.getTPS();
     }
 
     @Override

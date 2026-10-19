@@ -139,14 +139,14 @@ public class SwitchCommand extends AbstractCommand {
                 // If this block already had a delayed task, cancel it.
                 if (taskMap.containsKey(interactLocation)) {
                     try {
-                        Bukkit.getScheduler().cancelTask(taskMap.get(interactLocation));
+                        com.denizenscript.denizen.utilities.FoliaScheduler.cancelTask(taskMap.get(interactLocation));
                     }
                     catch (Exception e) {
                     }
                 }
                 Debug.echoDebug(scriptEntry, "Setting delayed task 'SWITCH' for " + interactLocation.identify());
                 // Store new delayed task ID, for checking against, then schedule new delayed task.
-                taskMap.put(interactLocation, Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> switchBlock(scriptEntry, interactLocation, SwitchState.TOGGLE, physics), duration.getTicks()));
+                taskMap.put(interactLocation, com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> switchBlock(scriptEntry, interactLocation, SwitchState.TOGGLE, physics), duration.getTicks()));
             }
         }
     }

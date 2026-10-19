@@ -69,7 +69,7 @@ public class TriggerTrait extends Trait implements Listener {
     public void load(DataKey key) {
         if (!key.keyExists("properly_set") && key.keyExists("enabled")) {
             for (final String triggerName : Denizen.getInstance().triggerRegistry.list().keySet()) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> properly_set.put(triggerName, key.getBoolean("enabled." + triggerName)));
+                com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> properly_set.put(triggerName, key.getBoolean("enabled." + triggerName)));
             }
         }
     }

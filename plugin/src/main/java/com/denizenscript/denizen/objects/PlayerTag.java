@@ -3900,7 +3900,7 @@ public class PlayerTag implements ObjectTag, Adjustable, EntityFormObject, Flagg
                 }
             }
             else {
-                getPlayerEntity().setPlayerListHeaderFooter(null, null);
+                getPlayerEntity().setPlayerListHeaderFooter((String) null, (String) null);
             }
         }
 

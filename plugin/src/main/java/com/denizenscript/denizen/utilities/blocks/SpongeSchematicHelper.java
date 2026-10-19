@@ -107,7 +107,7 @@ public class SpongeSchematicHelper {
             }
             if (!isPrimary && !latePairs.isEmpty()) {
                 BoolHolder bool = new BoolHolder();
-                Bukkit.getScheduler().runTask(Denizen.getInstance(), () -> {
+                com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.getInstance(), () -> {
                     for (Map.Entry<Integer, String> pair : latePairs) {
                         palette.put(pair.getKey(), blockDataCache.computeIfAbsent(pair.getValue(), SpongeSchematicHelper::unstableParseMaterial));
                     }

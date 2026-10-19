@@ -10,7 +10,7 @@ import com.denizenscript.denizen.utilities.packets.NetworkInterceptHelper;
 import com.denizenscript.denizencore.objects.core.DurationTag;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
@@ -118,7 +118,7 @@ public class FakeBlock {
         if (task != null && !task.isCancelled()) {
             return;
         }
-        scheduled.put(coord, Bukkit.getScheduler().runTaskLater(Denizen.getInstance(), () -> {
+        scheduled.put(coord, com.denizenscript.denizen.utilities.FoliaScheduler.runTaskLater(Denizen.getInstance(), () -> {
             world.refreshChunk(coord.x, coord.z);
             scheduled.remove(coord);
         }, 1));
@@ -155,7 +155,7 @@ public class FakeBlock {
             scheduleChunkRefresh(location.getWorld(), chunkCoord);
         }
         if (duration != null && duration.getTicks() > 0) {
-            currentTask = new BukkitRunnable() {
+            currentTask = new DenizenRunnable() {
                 @Override
                 public void run() {
                     currentTask = null;

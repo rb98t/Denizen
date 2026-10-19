@@ -114,7 +114,7 @@ public class ProfileEditorImpl extends ProfileEditor {
     public static final Field ClientboundPlayerInfoUpdatePacket_entries = ReflectionHelper.getFields(ClientboundPlayerInfoUpdatePacket.class).getFirstOfType(List.class);
 
     public static ClientboundPlayerInfoUpdatePacket createInfoPacket(EnumSet<ClientboundPlayerInfoUpdatePacket.Action> actions, List<ClientboundPlayerInfoUpdatePacket.Entry> entries) {
-        ClientboundPlayerInfoUpdatePacket playerInfoUpdatePacket = new ClientboundPlayerInfoUpdatePacket(actions, List.of());
+        ClientboundPlayerInfoUpdatePacket playerInfoUpdatePacket = new ClientboundPlayerInfoUpdatePacket(actions, java.util.Collections.<ServerPlayer>emptyList());
         try {
             ClientboundPlayerInfoUpdatePacket_entries.set(playerInfoUpdatePacket, entries);
         }

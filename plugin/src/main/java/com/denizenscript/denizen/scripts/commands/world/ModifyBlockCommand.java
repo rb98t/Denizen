@@ -36,7 +36,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,7 +50,7 @@ public class ModifyBlockCommand extends AbstractCommand implements Listener, Hol
         setRequiredArguments(2, 8);
         Bukkit.getPluginManager().registerEvents(this, Denizen.getInstance());
         // Keep the list empty automatically - we don't want to still block physics so much later that something else edited the block!
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(Denizen.getInstance(), () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncRepeatingTask(Denizen.getInstance(), () -> {
             tick++;
             if (physitick < tick - 1) {
                 block_physics.clear();
@@ -291,7 +291,7 @@ public class ModifyBlockCommand extends AbstractCommand implements Listener, Hol
         no_physics = !doPhysics;
         if (delayed.asBoolean()) {
             final long maxDelay = maxDelayMs.asLong();
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 int index = 0;
                 @Override
                 public void run() {

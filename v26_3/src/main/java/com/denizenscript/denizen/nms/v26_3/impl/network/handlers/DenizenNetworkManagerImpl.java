@@ -36,8 +36,8 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nullable;
-import javax.crypto.Cipher;
+import org.jetbrains.annotations.Nullable;
+import javax.crypto.SecretKey;
 import java.lang.invoke.MethodHandle;
 import java.lang.reflect.Field;
 import java.net.SocketAddress;
@@ -137,7 +137,11 @@ public class DenizenNetworkManagerImpl extends Connection {
 
     public static void enableNetworkManager() {
         for (World w : Bukkit.getWorlds()) {
-            for (ChunkMap.TrackedEntity tracker : ((CraftWorld) w).getHandle().getChunkSource().chunkMap.entityMap.values()) {
+            for (net.minecraft.world.entity.Entity nmsEntity : ((CraftWorld) w).getHandle().moonrise$getEntityLookup().getAll()) {
+                ChunkMap.TrackedEntity tracker = nmsEntity.moonrise$getTrackedEntity();
+                if (tracker == null) {
+                    continue;
+                }
                 ArrayList<ServerPlayerConnection> connections = new ArrayList<>(tracker.seenBy);
                 tracker.seenBy.clear();
                 for (ServerPlayerConnection connection : connections) {
@@ -464,8 +468,8 @@ public class DenizenNetworkManagerImpl extends Connection {
     }
 
     @Override
-    public void setEncryptionKey(Cipher cipher, Cipher cipher1) {
-        oldManager.setEncryptionKey(cipher, cipher1);
+    public void setEncryptionKey(SecretKey secretKey) throws net.minecraft.util.CryptException {
+        oldManager.setEncryptionKey(secretKey);
     }
 
     @Override

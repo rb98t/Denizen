@@ -85,7 +85,7 @@ public class InventoryScriptHelper implements Listener {
         }
         if (isGUI(event.getInventory())) {
             event.setCancelled(true);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
                 ((Player) event.getWhoClicked()).updateInventory();
             }, 1);
         }

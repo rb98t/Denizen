@@ -59,7 +59,7 @@ public class WalkCommandCitizensEvents implements Listener {
             }
             tally.remove(new NPCTag(e.getNPC()));
             if (tally.isEmpty()) {
-                Bukkit.getScheduler().runTaskLater(Denizen.getInstance(), () -> entry.setFinished(true), 1);
+                com.denizenscript.denizen.utilities.FoliaScheduler.runTaskLater(Denizen.getInstance(), () -> entry.setFinished(true), 1);
                 WalkCommand.held.remove(i--);
             }
         }

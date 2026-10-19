@@ -79,7 +79,7 @@ public class DenizenPacketListenerImpl extends AbstractListenerPlayInImpl {
     public void handleSetCarriedItem(ServerboundSetCarriedItemPacket packet) {
         FakeEquipCommand.EquipmentOverride override = FakeEquipCommand.getOverrideFor(player.getUUID(), getCraftPlayer());
         if (override != null && override.hand != null) {
-            Bukkit.getScheduler().runTaskLater(NMSHandler.getJavaPlugin(), player.getBukkitEntity()::updateInventory, 2);
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTaskLater(NMSHandler.getJavaPlugin(), player.getBukkitEntity()::updateInventory, 2);
         }
         super.handleSetCarriedItem(packet);
     }
@@ -88,7 +88,7 @@ public class DenizenPacketListenerImpl extends AbstractListenerPlayInImpl {
     public void handleContainerClick(ServerboundContainerClickPacket packet) {
         FakeEquipCommand.EquipmentOverride override = FakeEquipCommand.getOverrideFor(player.getUUID(), getCraftPlayer());
         if (override != null && packet.containerId() == 0) {
-            Bukkit.getScheduler().runTaskLater(NMSHandler.getJavaPlugin(), player.getBukkitEntity()::updateInventory, 1);
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTaskLater(NMSHandler.getJavaPlugin(), player.getBukkitEntity()::updateInventory, 1);
         }
         super.handleContainerClick(packet);
     }

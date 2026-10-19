@@ -33,7 +33,7 @@ import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.IllegalPluginAccessException;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredListener;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -604,7 +604,7 @@ public abstract class BukkitScriptEvent extends ScriptEvent {
                 Debug.log("Event is firing async: " + getName());
             }
             BukkitScriptEvent altEvent = (BukkitScriptEvent) clone();
-            new BukkitRunnable() {
+            new DenizenRunnable() {
                 @Override
                 public void run() {
                     altEvent.fire();

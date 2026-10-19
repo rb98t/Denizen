@@ -27,7 +27,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
@@ -205,7 +205,7 @@ public class LookCommand extends AbstractCommand {
         }
         if (duration != null && duration.getTicks() > 1) {
             for (EntityTag entity : entities) {
-                BukkitRunnable task = new BukkitRunnable() {
+                DenizenRunnable task = new DenizenRunnable() {
                     long bounces = 0;
 
                     public void run() {

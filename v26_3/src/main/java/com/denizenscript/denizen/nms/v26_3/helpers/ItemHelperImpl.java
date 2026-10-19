@@ -366,7 +366,7 @@ public class ItemHelperImpl extends ItemHelper {
                 nmsComponents -> {
                     net.minecraft.world.item.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
                     nmsItem.applyComponents(nmsComponents);
-                    return CraftItemStack.asCraftMirror(nmsItem);
+                    return CraftItemStack.asBukkitMirror(nmsItem);
                 },
                 error -> {
                     Debug.echoError("Invalid hover item data '" + components + "': " + error.message());
@@ -763,7 +763,7 @@ public class ItemHelperImpl extends ItemHelper {
         Item nmsItem = BuiltInRegistries.ITEM.getOptional(CraftNamespacedKey.toMinecraft(material.getKey())).orElse(null);
         if (nmsItem instanceof BlockItem) {
             Block block = ((BlockItem) nmsItem).getBlock();
-            return CraftBlockData.fromData(block.defaultBlockState());
+            return CraftBlockData.createData(block.defaultBlockState());
         }
         return null;
     }

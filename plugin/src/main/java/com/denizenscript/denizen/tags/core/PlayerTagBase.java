@@ -51,7 +51,7 @@ public class PlayerTagBase implements Listener {
     public void addMessage(final AsyncPlayerChatEvent event) {
         final int maxSize = Settings.chatHistoryMaxMessages();
         if (maxSize > 0) {
-            Bukkit.getScheduler().runTaskLater(Denizen.getInstance(), () -> {
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTaskLater(Denizen.getInstance(), () -> {
                 List<String> history = playerChatHistory.get(event.getPlayer().getUniqueId());
                 // If history hasn't been started for this player, initialize a new ArrayList
                 if (history == null) {

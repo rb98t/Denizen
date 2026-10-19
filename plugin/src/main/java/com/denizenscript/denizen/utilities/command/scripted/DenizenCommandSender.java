@@ -33,6 +33,11 @@ public class DenizenCommandSender implements ConsoleCommandSender {
     }
 
     @Override
+    public net.kyori.adventure.text.Component name() {
+        return net.kyori.adventure.text.Component.text(getName());
+    }
+
+    @Override
     public void sendMessage(String s) {
         output.add(s);
         if (!silent) {

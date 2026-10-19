@@ -21,7 +21,7 @@ import com.denizenscript.denizencore.scripts.containers.core.TaskScriptContainer
 import com.denizenscript.denizencore.scripts.queues.ScriptQueue;
 import com.denizenscript.denizencore.utilities.ScriptUtilities;
 import org.bukkit.Location;
-import org.bukkit.scheduler.BukkitRunnable;
+import com.denizenscript.denizen.utilities.DenizenRunnable;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 
@@ -222,7 +222,7 @@ public class PushCommand extends AbstractCommand implements Holdable {
         final Vector v2 = destination.toVector();
         final Vector Origin = originLocation.toVector();
         final int prec = precision.asInt();
-        BukkitRunnable task = new BukkitRunnable() {
+        DenizenRunnable task = new DenizenRunnable() {
             int runs = 0;
             LocationTag lastLocation;
             @Override

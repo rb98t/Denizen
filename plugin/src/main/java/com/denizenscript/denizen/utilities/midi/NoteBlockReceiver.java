@@ -127,7 +127,7 @@ public class NoteBlockReceiver implements Receiver, MetaEventListener {
             actualPlay.run();
         }
         else {
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), actualPlay);
+            com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), actualPlay);
         }
     }
 
@@ -139,7 +139,7 @@ public class NoteBlockReceiver implements Receiver, MetaEventListener {
             return;
         }
         closing = true;
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
+        com.denizenscript.denizen.utilities.FoliaScheduler.scheduleSyncDelayedTask(Denizen.getInstance(), () -> {
             try {
                 MidiUtil.receivers.remove(key);
                 if (sequencer != null) {

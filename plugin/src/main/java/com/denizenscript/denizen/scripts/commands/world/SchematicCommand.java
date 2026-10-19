@@ -206,11 +206,11 @@ public class SchematicCommand extends AbstractCommand implements Holdable, Liste
             }
             finally {
                 if (delayed) {
-                    Bukkit.getScheduler().runTask(Denizen.instance, () -> schematic.isModifying = false);
+                    com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.instance, () -> schematic.isModifying = false);
                 }
                 if (callback != null) {
                     if (delayed) {
-                        Bukkit.getScheduler().runTask(Denizen.instance, callback);
+                        com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.instance, callback);
                     }
                     else {
                         callback.run();
@@ -220,7 +220,7 @@ public class SchematicCommand extends AbstractCommand implements Holdable, Liste
         };
         if (delayed) {
             schematic.isModifying = true;
-            Bukkit.getScheduler().runTaskAsynchronously(Denizen.instance, rotateRunnable);
+            com.denizenscript.denizen.utilities.FoliaScheduler.runTaskAsynchronously(Denizen.instance, rotateRunnable);
         }
         else {
             rotateRunnable.run();
@@ -370,7 +370,7 @@ public class SchematicCommand extends AbstractCommand implements Holdable, Liste
                             scriptEntry.setFinished(true);
                         };
                         if (delayed) {
-                            Bukkit.getScheduler().runTask(Denizen.instance, storeSchem);
+                            com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.instance, storeSchem);
                         }
                         else {
                             storeSchem.run();
@@ -382,7 +382,7 @@ public class SchematicCommand extends AbstractCommand implements Holdable, Liste
                             Debug.echoError(scriptEntry, ex);
                         };
                         if (delayed) {
-                            Bukkit.getScheduler().runTask(Denizen.instance, showError);
+                            com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.instance, showError);
                         }
                         else {
                             showError.run();
@@ -392,7 +392,7 @@ public class SchematicCommand extends AbstractCommand implements Holdable, Liste
                     }
                 };
                 if (delayed) {
-                    Bukkit.getScheduler().runTaskAsynchronously(Denizen.instance, loadRunnable);
+                    com.denizenscript.denizen.utilities.FoliaScheduler.runTaskAsynchronously(Denizen.instance, loadRunnable);
                 }
                 else {
                     loadRunnable.run();
@@ -575,19 +575,19 @@ public class SchematicCommand extends AbstractCommand implements Holdable, Liste
                         fs.close();
                     }
                     catch (Exception ex) {
-                        Bukkit.getScheduler().runTask(Denizen.instance, () -> {
+                        com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.instance, () -> {
                             Debug.echoError(scriptEntry, "Error saving schematic file " + fname + ".");
                             Debug.echoError(scriptEntry, ex);
                         });
                     }
-                    Bukkit.getScheduler().runTask(Denizen.instance, () -> {
+                    com.denizenscript.denizen.utilities.FoliaScheduler.runTask(Denizen.instance, () -> {
                         set.readingProcesses--;
                         scriptEntry.setFinished(true);
                     });
                 };
                 if (delayed) {
                     set.readingProcesses++;
-                    Bukkit.getScheduler().runTaskAsynchronously(Denizen.instance, saveRunnable);
+                    com.denizenscript.denizen.utilities.FoliaScheduler.runTaskAsynchronously(Denizen.instance, saveRunnable);
                 }
                 else {
                     scriptEntry.setFinished(true);

@@ -259,12 +259,12 @@ public class PaperAPITools {
     }
 
     public String getCopperGolemState(CopperGolem copperGolem) {
-        return copperGolem.getWeatherState().name();
+        return copperGolem.getWeatheringState().name();
     }
 
     public void setCopperGolemState(ElementTag variant, CopperGolem copperGolem, Mechanism mechanism) {
-        if (mechanism.requireEnum(CopperGolem.CopperWeatherState.class)) {
-            copperGolem.setWeatherState(variant.asEnum(CopperGolem.CopperWeatherState.class));
+        if (mechanism.requireEnum(io.papermc.paper.world.WeatheringCopperState.class)) {
+            copperGolem.setWeatheringState(variant.asEnum(io.papermc.paper.world.WeatheringCopperState.class));
         }
     }
 }
