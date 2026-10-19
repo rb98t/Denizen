@@ -114,7 +114,11 @@ public class BukkitWorldScriptHelper implements Listener {
     public static void cleanAllWorldChunkFlags() {
         for (World world : Bukkit.getWorlds()) {
             for (Chunk chunk : world.getLoadedChunks()) {
-                new DataPersistenceFlagTracker(chunk).doTotalClean();
+                Bukkit.getRegionScheduler().execute(Denizen.getInstance(), world, chunk.getX(), chunk.getZ(), () -> {
+                    if (chunk.isLoaded()) {
+                        new DataPersistenceFlagTracker(chunk).doTotalClean();
+                    }
+                });
             }
         }
     }

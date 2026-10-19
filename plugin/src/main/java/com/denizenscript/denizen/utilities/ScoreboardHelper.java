@@ -28,11 +28,13 @@ public class ScoreboardHelper {
         for (Map.Entry<String, Scoreboard> entry : scoreboardMap.entrySet()) {
             clearScoreboard(entry.getValue());
         }
-        Scoreboard emptyBoard = createScoreboard();
-        for (Map.Entry<UUID, String> entry : viewerMap.entrySet()) {
-            OfflinePlayer player = Bukkit.getPlayer(entry.getKey());
-            if (player != null && player.isOnline()) {
-                player.getPlayer().setScoreboard(emptyBoard);
+        if (!viewerMap.isEmpty()) {
+            Scoreboard emptyBoard = createScoreboard();
+            for (Map.Entry<UUID, String> entry : viewerMap.entrySet()) {
+                OfflinePlayer player = Bukkit.getPlayer(entry.getKey());
+                if (player != null && player.isOnline()) {
+                    player.getPlayer().setScoreboard(emptyBoard);
+                }
             }
         }
         scoreboardMap.clear();
@@ -167,12 +169,17 @@ public class ScoreboardHelper {
 
     /** Creates an anonymous new Scoreboard that isn't saved anywhere. */
     public static Scoreboard createScoreboard() {
-        return manager.getNewScoreboard();
+        try {
+            return manager.getNewScoreboard();
+        }
+        catch (UnsupportedOperationException ex) {
+            return manager.getMainScoreboard();
+        }
     }
 
     /** Creates a new Scoreboard with a certain id and stories it in the scoreboards map. */
     public static Scoreboard createScoreboard(String id) {
-        Scoreboard board = manager.getNewScoreboard();
+        Scoreboard board = createScoreboard();
         scoreboardMap.put(id.toUpperCase(), board);
         return board;
     }
